@@ -2,7 +2,7 @@ from typing import Any
 
 from django.db import models
 from django.db.models import UniqueConstraint
-from werkzeug.routing import ValidationError
+from django.core.exceptions import ValidationError
 
 
 class Genre(models.Model):
@@ -55,7 +55,7 @@ class MovieSession(models.Model):
     )
 
     def __init__(self, *args: Any, **kwargs: Any):
-        super().__init__(args, kwargs)
+        super().__init__(*args, **kwargs)
         self.title = None
 
     def __str__(self) -> str:
