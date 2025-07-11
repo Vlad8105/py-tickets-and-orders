@@ -54,7 +54,7 @@ class MovieSession(models.Model):
         related_name="movie_sessions"
     )
 
-    def __init__(self, *args: Any, **kwargs: Any):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.title = None
 

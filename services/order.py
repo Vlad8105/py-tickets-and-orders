@@ -5,7 +5,7 @@ from db.models import Order, Ticket, MovieSession
 
 
 @transaction.atomic
-def create_order(tickets, username, date=None):
+def create_order(tickets: list, username: str, date: str) -> Order:
     user = User.objects.get(username=username)
     if date:
         created_at = datetime.strptime(date, "%Y-%m-%d %H:%M")
@@ -26,7 +26,7 @@ def create_order(tickets, username, date=None):
     return order
 
 
-def get_orders(username=None):
+def get_orders(username: str) -> list:
     if username:
         user = User.objects.get(username=username)
         return Order.objects.filter(user=user)
