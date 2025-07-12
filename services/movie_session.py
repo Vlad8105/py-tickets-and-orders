@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.db.models import QuerySet
 
-from db.models import MovieSession, Order, Movie, CinemaHall, Ticket
+from db.models import MovieSession, Movie, CinemaHall, Ticket
 
 
 def create_movie_session(
