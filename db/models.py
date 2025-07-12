@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models import UniqueConstraint
 from django.core.exceptions import ValidationError
 
-import settings
+from django.conf import settings
 
 import django.utils.timezone
 

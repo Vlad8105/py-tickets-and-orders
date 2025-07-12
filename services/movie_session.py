@@ -41,8 +41,10 @@ def update_movie_session(
         movie_session.show_time = datetime.strptime(
             show_time, "%Y-%m-%d %H:%M")
     if movie_id:
+        movie_session.movie_id = movie_id
         movie_session.movie_id = Movie.objects.get(id=movie_id)
     if cinema_hall_id:
+        movie_session.cinema_hall_id = cinema_hall_id
         movie_session.cinema_hall_id = CinemaHall.objects.get(
             id=cinema_hall_id)
     movie_session.save()
