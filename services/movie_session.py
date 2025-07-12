@@ -45,5 +45,6 @@ def delete_movie_session_by_id(session_id: int) -> None:
 
 
 def get_taken_seats(movie_session_id: int) -> QuerySet:
-    taken_tickets = Order.objects.filter(movie_session=movie_session_id).values_list("row", "seat")
+    taken_tickets = Order.objects.filter(
+        movie_session=movie_session_id).values_list("row", "seat")
     return taken_tickets
