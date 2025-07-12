@@ -1,6 +1,7 @@
+from django.db import transaction
 from django.db.models import QuerySet
 
-from db.models import Movie
+from db.models import Movie, Actor, Genre
 
 
 def get_movies(
@@ -26,6 +27,7 @@ def get_movie_by_id(movie_id: int) -> Movie:
     return Movie.objects.get(id=movie_id)
 
 
+@transaction.atomic
 def create_movie(
     movie_title: str,
     movie_description: str,
@@ -36,9 +38,19 @@ def create_movie(
         title=movie_title,
         description=movie_description,
     )
-    if genres_ids:
-        movie.genres.set(genres_ids)
-    if actors_ids:
-        movie.actors.set(actors_ids)
+
+    for genre_id in genres_ids:
+        if not isinstance(genre_id, int):
+            raise ValueError(
+                f"Invalid genre ID type: '{genre_id}'. Expected an integer.")
+        genre = Genre.objects.get(id=genre_id)
+        movie.genres.add(genre)
+
+    for actor_id in actors_ids:
+        if not isinstance(actor_id, int):
+            raise ValueError(
+                f"Invalid actor ID type: '{actor_id}'. Expected an integer.")
+        actor = Actor.objects.get(id=actor_id)
+        movie.actors.add(actor)
 
     return movie
